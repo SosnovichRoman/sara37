@@ -1,25 +1,34 @@
 import React from 'react'
+
 import { IFormBuilderConfig } from '../types/form-config.types'
 
 const FormBuilder = ({ config }: { config: IFormBuilderConfig }) => {
 	return (
 		<div className='form-builder'>
 			<div className='form-builder__section'>
-				{config.input ? <p>Inputs:</p> : ''}
-				{[...Array(config.input)].map(() => (
-					<input type='text' className='form-configurator__input' />
+				{config.input.length > 0 ? <p>Inputs:</p> : ''}
+				{config.input.map((item) => (
+					<input
+						key={item.id}
+						type='text'
+						className='form-configurator__input'
+					/>
 				))}
 			</div>
 			<div className='form-builder__section'>
-				{config.textarea ? <p>Textareas:</p> : ''}
-				{[...Array(config.textarea)].fill('any').map(() => (
-					<textarea className='form-configurator__input' />
+				{config.textarea.length > 0 ? <p>Textareas:</p> : ''}
+				{config.textarea.map((item) => (
+					<textarea key={item.id} className='form-configurator__input' />
 				))}
 			</div>
 			<div className='form-builder__section'>
-				{config.checkbox ? <p>Checkboxes:</p> : ''}
-				{[...Array(config.checkbox)].fill('any').map(() => (
-					<input type='checkbox' className='form-configurator__input' />
+				{config.checkbox.length > 0 ? <p>Checkboxes:</p> : ''}
+				{config.checkbox.map((item) => (
+					<input
+						key={item.id}
+						type='checkbox'
+						className='form-configurator__input'
+					/>
 				))}
 			</div>
 		</div>

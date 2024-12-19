@@ -1,5 +1,7 @@
 import React, { FormEvent, useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 import { IFormBuilderConfig, IFormConfig } from '../types/form-config.types'
+import { IInput } from '../types/input.type'
 import FormBuilder from './FormBuilder'
 
 const FormConfigurator = () => {
@@ -11,16 +13,33 @@ const FormConfigurator = () => {
 
 	const [buildedFormConfig, setBuildedFormConfig] =
 		useState<IFormBuilderConfig>({
-			input: 0,
-			textarea: 0,
-			checkbox: 0,
+			input: [],
+			textarea: [],
+			checkbox: [],
 		})
+
+	const modifyArray = (array: Array<IInput>, newLength: number) => {
+		const diff = newLength - array.length
+		if (diff > 0) {
+			return array.concat([...Array(diff)].map(() => ({ id: uuidv4() })))
+		}
+		if (diff < 0) {
+			return array.slice(0, diff)
+		}
+		return array.map((x) => x)
+	}
 
 	const buildForm = (e: FormEvent<HTMLFormElement>) => {
 		setBuildedFormConfig({
-			input: Number(formConfig.input),
-			textarea: Number(formConfig.textarea),
-			checkbox: Number(formConfig.checkbox),
+			input: modifyArray(buildedFormConfig.input, Number(formConfig.input)),
+			textarea: modifyArray(
+				buildedFormConfig.textarea,
+				Number(formConfig.textarea)
+			),
+			checkbox: modifyArray(
+				buildedFormConfig.checkbox,
+				Number(formConfig.checkbox)
+			),
 		})
 		e.preventDefault()
 	}

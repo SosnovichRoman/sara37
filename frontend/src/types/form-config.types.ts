@@ -1,7 +1,9 @@
+import { IInput } from './input.type'
+
 export interface IFormBuilderConfig {
-	input: number
-	textarea: number
-	checkbox: number
+	input: Array<IInput>
+	textarea: Array<IInput>
+	checkbox: Array<IInput>
 }
 
 export interface IFormConfig {
